@@ -14,19 +14,19 @@ $page = $_GET['page'] ?? 'login';
 
 if (in_array($page, $logged_in_pages) && empty($user)) {
     header('Location: ./?page=login');
-    exit;
+    
 }
 
 if (in_array($page, $non_logged_in_pages) && !empty($user)) {
     header('Location: ./?page=dashboard');
-    exit;
+    
 }
 
 if (in_array($page, $available_pages)) {
     include './pages/' . $page . '.php';
 } else {
     header('Location: ./?page=login');
-    exit;
+    
 }
 
 include './includes/footer.inc.php';
