@@ -43,14 +43,14 @@ if (isset($_POST["name"], $_POST["username"], $_POST['passwd'], $_POST['confirmP
 
         <div class="mb-3">
             <label class="form-label">Name</label>
-            <input name="name" value="<?php echo ($name); ?>" type="text"
+            <input name="name" value="<?php echo $name; ?>" type="text"
                 class="form-control <?php echo empty($nameErr) ? '' : 'is-invalid'; ?>">
             <div class="invalid-feedback"><?php echo $nameErr; ?></div>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Username</label>
-            <input name="username" value="<?php echo ($username); ?>" type="text"
+            <input name="username" value="<?php echo $username; ?>" type="text"
                 class="form-control <?php echo empty($usernameErr) ? '' : 'is-invalid'; ?>">
             <div class="invalid-feedback"><?php echo $usernameErr; ?></div>
         </div>

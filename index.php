@@ -1,24 +1,32 @@
 <?php
 require_once './init/init.php';
+
+$user = loggedInUser();
+
 include './includes/header.inc.php';
 include './includes/navbar.inc.php';
 
+$available_pages = ['login', 'register', 'logout', 'dashboard'];
+$logged_in_pages = ['dashboard'];
+$non_logged_in_pages = ['login', 'register'];
 
-$available_pages = ['login', 'register'];
+$page = $_GET['page'] ?? 'login';
 
-if (isset($_GET['page'])) {
+if (in_array($page, $logged_in_pages) && empty($user)) {
+    header('Location: ./?page=login');
+    exit;
+}
 
-    $page = $_GET['page'];
-    if (in_array($page, $available_pages)) {
+if (in_array($page, $non_logged_in_pages) && !empty($user)) {
+    header('Location: ./?page=dashboard');
+    exit;
+}
 
-        include './pages/' . $page . '.php';
-    } else {
-        include './pages/error404.php';
-    }
+if (in_array($page, $available_pages)) {
+    include './pages/' . $page . '.php';
 } else {
-    include './pages/error404.php';
-
+    header('Location: ./?page=login');
+    exit;
 }
 
 include './includes/footer.inc.php';
-?>
