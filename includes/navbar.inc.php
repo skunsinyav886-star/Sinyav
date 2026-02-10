@@ -1,18 +1,18 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
+    <div class="container">
         <a class="navbar-brand" href="#">Navbar</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
+                <!-- </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Link</a>
-                </li>
+                </li> -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
@@ -20,24 +20,31 @@
                     </a>
                     <ul class="dropdown-menu">
                         <?php if (empty($user)) { ?>
-                            <li><a class="dropdown-item" href="/g19bcsy3c/?page=login">Login</a></li>
+                            <li><a class="dropdown-item"
+                                    href="/bcsy3cs1/?page=login">Login</a></li>
                             <li>
-
                                 <hr class="dropdown-divider">
-                            <li><a class="dropdown-item" href="/g19bcsy3c/?page=register">Register</a></li>
+                            </li>
+                            <li><a class="dropdown-item"
+                                    href="/bcsy3cs1/?page=register">Register</a></li>
                         <?php } else { ?>
-                            <li><a class="dropdown-item" href="/g19bcsy3c/?page=Logout">Logout</a></li>
+                          <li><a class="dropdown-item"
+                                    href="/bcsy3cs1/?page=profile">Profile</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            <li><a class="dropdown-item"
+                                    href="/bcsy3cs1/?page=logout">Logout</a></li>
                         <?php } ?>
                     </ul>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                </li>
+                </li> -->
             </ul>
-            <form class="d-flex" role="search">
+            <!-- <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                 <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            </form> -->
         </div>
     </div>
 </nav>
