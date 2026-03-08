@@ -29,6 +29,22 @@ if (isset($_POST['name'], $_POST['username'], $_POST['passwd'], $_FILES['photo']
         //         Username exists or Service busy!
         //         </div>';
         // }
+        try {
+            if (createUser($name, $username, $passwd, $photo)) {
+                $name = $username = $passwd = '';
+                echo '<div class="alert alert-success" role="alert">
+                Create success.
+                </div>';
+            } else {
+                echo '<div class="alert alert-danger" role="alert">
+                 Create failed!
+                </div>';
+            }
+        } catch (Exception $e) {
+            echo '<div class="alert alert-danger" role="alert">
+                 ' . $e->getMessage() . '
+                </div>';
+        }
     }
 }
 ?>
