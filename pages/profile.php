@@ -67,7 +67,7 @@ if (isset($_POST['deletePhoto'])) {
             <div class="d-flex justify-content-center">
                 <input name="photo" type="file" id="profileUpload" hidden>
                 <label role="button" for="profileUpload">
-                    <img src="<?php echo loggedInUser()->photo ?? './assets/images/emptyuser.png' ?>"
+                    <img src="<?php echo loggedInUser()->photo ?? './assets/image/emptyuser.png' ?>"
                         class="rounded img-thumbnail" style="max-width:200px">
                 </label>
             </div>

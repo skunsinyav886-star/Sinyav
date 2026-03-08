@@ -135,7 +135,7 @@ function uploadImage($image)
     $tmp_name = $image['tmp_name'];
     $error = $image['error'];
 
-    $dir = './assets/images/';
+    $dir = './assets/image/';
 
     $allow_exs = ['jpg', 'png', 'jpeg'];
     $image_ex = pathinfo($img_name, PATHINFO_EXTENSION);
