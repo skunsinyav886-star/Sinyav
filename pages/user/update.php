@@ -1,6 +1,13 @@
 <?php
-$name = $username = $passwd = '';
-$nameErr = $usernameErr = $passwdErr = '';
+$id = $_GET['id'];
+$targetUser = readUser($id);
+if ($targetUser == null || $targetUser->level == 'admin') {
+    header('Location: ./?page=user/list');
+}
+$name = $targetUser->name;
+$username = $targetUser->username;
+$nameErr = $usernameErr = '';
+
 if (isset($_POST['name'], $_POST['username'], $_POST['passwd'], $_FILES['photo'])) {
     $photo = $_FILES['photo'];
     $name = trim($_POST['name']);
@@ -12,32 +19,17 @@ if (isset($_POST['name'], $_POST['username'], $_POST['passwd'], $_FILES['photo']
     if (empty($username)) {
         $usernameErr = 'please input username!';
     }
-    if (empty($passwd)) {
-        $passwdErr = 'please input password!';
-    }
-    if (usernameExists($username)) {
+    if ($targetUser->username !== $username && usernameExists($username)) {
         $usernameErr = 'Username exists!';
     }
-    if (empty($nameErr) && empty($usernameErr) && empty($passwdErr)) {
-        // if (UpdateUser($name, $username, $passwd)) {
-        //     $name = $username = $passwd = '';
-        //     echo '<div class="alert alert-success" role="alert">
-        //         Registered. Go to <a href="./?page=login">Login</a>
-        //         </div>';
-        // }else{
-        //     echo '<div class="alert alert-danger" role="alert">
-        //         Username exists or Service busy!
-        //         </div>';
-        // }
+    if (empty($nameErr) && empty($usernameErr)) {
         try {
-            if (createUser($name, $username, $passwd, $photo)) {
-                $name = $username = $passwd = '';
+            if (updateUser($id, $name, $username, $passwd, $photo)) {
+                $targetUser = readUser($id);
+                $name = $targetUser->name;
+                $username = $targetUser->username;
                 echo '<div class="alert alert-success" role="alert">
                 Create success.
-                </div>';
-            } else {
-                echo '<div class="alert alert-danger" role="alert">
-                 Create failed!
                 </div>';
             }
         } catch (Exception $e) {
@@ -49,12 +41,13 @@ if (isset($_POST['name'], $_POST['username'], $_POST['passwd'], $_FILES['photo']
 }
 ?>
 
-<form method="post" action="./?page=user/create" enctype="multipart/form-data" class="col-md-8 col-lg-6 mx-auto">
-    <h3>Create User</h3>
+<form method="post" action="./?page=user/update&id=<?php echo $id; ?>" enctype="multipart/form-data"
+    class="col-md-8 col-lg-6 mx-auto">
+    <h3>Update User</h3>
     <div class="d-flex justify-content-center">
         <input name="photo" type="file" id="profileUpload" hidden>
         <label role="button" for="profileUpload">
-            <img src="./assets/image/emptyuser.png"
+            <img src="<?php echo $targetUser->photo ?? './assets/image/emptyuser.png'; ?>"
                 class="rounded img-thumbnail" style="max-width:200px">
         </label>
     </div>
@@ -76,11 +69,7 @@ if (isset($_POST['name'], $_POST['username'], $_POST['passwd'], $_FILES['photo']
     </div>
     <div class="mb-3">
         <label class="form-label">Password</label>
-        <input name="passwd" type="password" class="form-control 
-        <?php echo empty($passwdErr) ? '' : 'is-invalid' ?>">
-        <div class="invalid-feedback">
-            <?php echo $passwdErr ?>
-        </div>
+        <input name="passwd" type="password" class="form-control">
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
